@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjdaeimjcflqn"]
+[gd_scene load_steps=8 format=3 uid="uid://bjdaeimjcflqn"]
 
-[ext_resource type="Script" path="res://GameExecutive.cs" id="1_d44tp"]
-[ext_resource type="Script" path="res://PlayerMovement.cs" id="2_cbhip"]
-[ext_resource type="Script" path="res://BallMechanic.cs" id="3_v1ay2"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rsj7b"]
+[ext_resource type="Script" path="res://Scripts/GameExecutive.cs" id="1_d44tp"]
+[ext_resource type="PackedScene" uid="uid://5dai7dfhlhu3" path="res://Player.tscn" id="2_jdeee"]
+[ext_resource type="Script" path="res://Scripts/BallMechanic.cs" id="3_v1ay2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kioof"]
 size = Vector2(24, 648)
@@ -42,54 +40,12 @@ color = Color(0.819608, 0.811765, 0.819608, 0.298039)
 one_shot = true
 autostart = true
 
-[node name="Player 1" type="CharacterBody2D" parent="."]
-position = Vector2(64, 320)
-script = ExtResource("2_cbhip")
-Speed = 250.0
+[node name="Player 1" parent="." instance=ExtResource("2_jdeee")]
+position = Vector2(56, 320)
 
-[node name="Hitbox" type="CollisionShape2D" parent="Player 1"]
-scale = Vector2(1, 5)
-shape = SubResource("RectangleShape2D_rsj7b")
-
-[node name="Color" type="ColorRect" parent="Player 1"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1, 5)
-pivot_offset = Vector2(10, 10)
-
-[node name="Player 2" type="CharacterBody2D" parent="."]
-position = Vector2(1098, 320)
-script = ExtResource("2_cbhip")
+[node name="Player 2" parent="." instance=ExtResource("2_jdeee")]
+position = Vector2(1096, 320)
 selectedPlayer = 1
-Speed = 250.0
-
-[node name="Hitbox" type="CollisionShape2D" parent="Player 2"]
-scale = Vector2(1, 5)
-shape = SubResource("RectangleShape2D_rsj7b")
-
-[node name="Color" type="ColorRect" parent="Player 2"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1, 5)
-pivot_offset = Vector2(10, 10)
 
 [node name="Goal Area Player 1" type="Area2D" parent="."]
 
@@ -182,6 +138,7 @@ scroll_fit_content_height = true
 [node name="Score P2" type="TextEdit" parent="HUD"]
 texture_filter = 1
 texture_repeat = 1
+layout_mode = 0
 offset_left = 704.0
 offset_top = 28.0
 offset_right = 804.0
@@ -202,6 +159,12 @@ drag_and_drop_selection_enabled = false
 virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
 scroll_fit_content_height = true
+
+[node name="Spawn Locations" type="Node2D" parent="."]
+
+[node name="1" type="Node2D" parent="Spawn Locations" groups=["PlayerSpawnPoints"]]
+
+[node name="2" type="Node2D" parent="Spawn Locations" groups=["PlayerSpawnPoints"]]
 
 [connection signal="timeout" from="Restart Timer" to="." method="OnTimerOut"]
 [connection signal="body_entered" from="Goal Area Player 1" to="." method="OnGoalAreaEntered_P1"]

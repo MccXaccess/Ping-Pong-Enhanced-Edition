@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Godot;
 
-// The Game Manager
 namespace PingPong_GameExecutive
 {
 	public partial class GameExecutive : Node2D
@@ -16,7 +15,6 @@ namespace PingPong_GameExecutive
 
 		public int[] scores = new int[2];
 		public static List<Player> multiplayer_players = new();
-
 		public void OnTimerOut()
 		{
 			GetNode<BallMechanic>("Ball").ResetBallPosition();
