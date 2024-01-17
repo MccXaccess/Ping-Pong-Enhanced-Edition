@@ -1,0 +1,208 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjdaeimjcflqn"]
+
+[ext_resource type="Script" path="res://GameExecutive.cs" id="1_d44tp"]
+[ext_resource type="Script" path="res://PlayerMovement.cs" id="2_cbhip"]
+[ext_resource type="Script" path="res://BallMechanic.cs" id="3_v1ay2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rsj7b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kioof"]
+size = Vector2(24, 648)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnhct"]
+size = Vector2(1152, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2x8s0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qos0k"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_color = Color(1, 1, 1, 0)
+shadow_color = Color(0, 0, 0, 0)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_d44tp")
+
+[node name="Background Image" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Foreground Line" type="ColorRect" parent="."]
+offset_left = 568.0
+offset_right = 583.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.819608, 0.811765, 0.819608, 0.298039)
+
+[node name="Restart Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Player 1" type="CharacterBody2D" parent="."]
+position = Vector2(64, 320)
+script = ExtResource("2_cbhip")
+Speed = 250.0
+
+[node name="Hitbox" type="CollisionShape2D" parent="Player 1"]
+scale = Vector2(1, 5)
+shape = SubResource("RectangleShape2D_rsj7b")
+
+[node name="Color" type="ColorRect" parent="Player 1"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 5)
+pivot_offset = Vector2(10, 10)
+
+[node name="Player 2" type="CharacterBody2D" parent="."]
+position = Vector2(1098, 320)
+script = ExtResource("2_cbhip")
+selectedPlayer = 1
+Speed = 250.0
+
+[node name="Hitbox" type="CollisionShape2D" parent="Player 2"]
+scale = Vector2(1, 5)
+shape = SubResource("RectangleShape2D_rsj7b")
+
+[node name="Color" type="ColorRect" parent="Player 2"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 5)
+pivot_offset = Vector2(10, 10)
+
+[node name="Goal Area Player 1" type="Area2D" parent="."]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Goal Area Player 1"]
+position = Vector2(-12, 324)
+shape = SubResource("RectangleShape2D_kioof")
+
+[node name="Goal Area Player 2" type="Area2D" parent="."]
+position = Vector2(1176, 0)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Goal Area Player 2"]
+position = Vector2(-12, 324)
+shape = SubResource("RectangleShape2D_kioof")
+
+[node name="Collision Wall Top" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="Hitbox" type="CollisionShape2D" parent="Collision Wall Top"]
+position = Vector2(576, -12)
+shape = SubResource("RectangleShape2D_xnhct")
+
+[node name="Collision Wall Bottom" type="StaticBody2D" parent="."]
+position = Vector2(0, 672)
+collision_layer = 2
+
+[node name="Hitbox" type="CollisionShape2D" parent="Collision Wall Bottom"]
+position = Vector2(576, -12)
+shape = SubResource("RectangleShape2D_xnhct")
+
+[node name="Ball" type="CharacterBody2D" parent="."]
+visibility_layer = 2
+position = Vector2(576, 320)
+collision_mask = 3
+script = ExtResource("3_v1ay2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("RectangleShape2D_2x8s0")
+
+[node name="Color" type="ColorRect" parent="Ball"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(10, 10)
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1152.0
+offset_bottom = 668.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score P1" type="TextEdit" parent="HUD"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+offset_left = 376.0
+offset_top = 24.0
+offset_right = 476.0
+offset_bottom = 201.0
+focus_mode = 0
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+theme_override_colors/background_color = Color(0, 0, 0, 0)
+theme_override_colors/font_color = Color(1, 1, 1, 0.533333)
+theme_override_font_sizes/font_size = 120
+theme_override_styles/normal = SubResource("StyleBoxFlat_qos0k")
+text = "0"
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+scroll_fit_content_height = true
+
+[node name="Score P2" type="TextEdit" parent="HUD"]
+texture_filter = 1
+texture_repeat = 1
+offset_left = 704.0
+offset_top = 28.0
+offset_right = 804.0
+offset_bottom = 205.0
+focus_mode = 0
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+theme_override_colors/background_color = Color(0, 0, 0, 0)
+theme_override_colors/font_color = Color(1, 1, 1, 0.533333)
+theme_override_font_sizes/font_size = 120
+theme_override_styles/normal = SubResource("StyleBoxFlat_qos0k")
+text = "0"
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+scroll_fit_content_height = true
+
+[connection signal="timeout" from="Restart Timer" to="." method="OnTimerOut"]
+[connection signal="body_entered" from="Goal Area Player 1" to="." method="OnGoalAreaEntered_P1"]
+[connection signal="body_entered" from="Goal Area Player 2" to="." method="OnGoalAreaEntered_P2"]
