@@ -1,0 +1,85 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwtcufnykv2gk"]
+
+[ext_resource type="Script" path="res://Scripts/MultiplayerController.cs" id="1_plp8i"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_plp8i")
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 512.0
+offset_right = 305.0
+offset_bottom = 560.0
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 512.0
+offset_right = 497.0
+offset_bottom = 560.0
+text = "Join"
+
+[node name="StartGame" type="Button" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 512.0
+offset_right = 689.0
+offset_bottom = 560.0
+text = "Start Game"
+
+[node name="HOST" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 352.0
+offset_right = 480.0
+offset_bottom = 383.0
+
+[node name="PORT" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 416.0
+offset_right = 480.0
+offset_bottom = 447.0
+
+[node name="NAME" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 288.0
+offset_right = 480.0
+offset_bottom = 319.0
+
+[node name="HOST_Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 328.0
+offset_right = 231.0
+offset_bottom = 354.0
+text = "Host Address"
+
+[node name="PORT_Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 392.0
+offset_right = 175.0
+offset_bottom = 418.0
+text = "Host Port"
+
+[node name="NAME_Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 264.0
+offset_right = 218.0
+offset_bottom = 290.0
+text = "Nickname"
+
+[connection signal="button_down" from="Host" to="." method="OnHostPressed"]
+[connection signal="button_down" from="Join" to="." method="OnJoinPressed"]
+[connection signal="button_down" from="StartGame" to="." method="OnStartGamePressed"]

@@ -1,34 +1,37 @@
-using System;
 using Godot;
 using PingPong_GameExecutive;
 using PingPong_Extensions;
 
-public partial class SceneExecutive : Node2D
+namespace PingPong_SceneExecutive
 {
-    [Export]
-    public PackedScene PlayerScene { get; set; }
-
-    public override void _Ready() 
+    public partial class SceneExecutive : Node2D
     {
-        int index = 0;
+        [Export]
+        public PackedScene PlayerScene { get; set; }
+        public PackedScene GameScene;
 
-        foreach (var player in GameExecutive.multiplayer_players)
+        public override void _Ready() 
         {
-            Node currentPlayer = PlayerScene.Instantiate();
+            int index = 0;
 
-            currentPlayer.Name = player.Name;
-
-            AddChild(currentPlayer);
-
-            foreach (Node spawnPoint in GetTree().GetNodesInGroup("PlayerSpawnPoints"))
+            foreach (var player in GameExecutive.MultiplayerPlayers)
             {
-                if (spawnPoint.Name == index.ToString())
-                {
-                    currentPlayer.AsNode2D().GlobalPosition = spawnPoint.AsNode2D().GlobalPosition;
-                }
-            }
+                PlayerMovement currentPlayer = PlayerScene.Instantiate<PlayerMovement>();
 
-            index++;
+                currentPlayer.Name = player.Name;
+
+                AddChild(currentPlayer);
+
+                foreach (Node2D spawnPoint in GetTree().GetNodesInGroup("PlayerSpawnPoints"))
+                {
+                    if (spawnPoint.Name == index.ToString())
+                    {
+                        currentPlayer.AsNode2D().GlobalPosition = spawnPoint.GlobalPosition;
+                    }
+                }
+
+                index++;
+            }
         }
     }
 }

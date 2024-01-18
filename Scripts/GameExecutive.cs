@@ -3,18 +3,11 @@ using Godot;
 
 namespace PingPong_GameExecutive
 {
-	public partial class GameExecutive : Node2D
+    public partial class GameExecutive : Node2D
 	{
-		public class Player
-		{
-			public int ID { get; set; }
-			public string Name { get; set; }
-			public int Score { get; set; }
-		}
-
 
 		public int[] scores = new int[2];
-		public static List<Player> multiplayer_players = new();
+		public static List<Player> MultiplayerPlayers = new();
 		public void OnTimerOut()
 		{
 			GetNode<BallMechanic>("Ball").ResetBallPosition();

@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bjdaeimjcflqn"]
+[gd_scene load_steps=9 format=3 uid="uid://bjdaeimjcflqn"]
 
 [ext_resource type="Script" path="res://Scripts/GameExecutive.cs" id="1_d44tp"]
-[ext_resource type="PackedScene" uid="uid://5dai7dfhlhu3" path="res://Player.tscn" id="2_jdeee"]
+[ext_resource type="PackedScene" uid="uid://5dai7dfhlhu3" path="res://Scenes/Player.tscn" id="2_jdeee"]
 [ext_resource type="Script" path="res://Scripts/BallMechanic.cs" id="3_v1ay2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kioof"]
@@ -11,6 +11,11 @@ size = Vector2(24, 648)
 size = Vector2(1152, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2x8s0"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xeaf5"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qos0k"]
 bg_color = Color(1, 1, 1, 0)
@@ -97,6 +102,9 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(10, 10)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Ball"]
+replication_config = SubResource("SceneReplicationConfig_xeaf5")
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3

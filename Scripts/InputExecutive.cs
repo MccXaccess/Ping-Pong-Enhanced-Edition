@@ -17,6 +17,6 @@ public partial class InputExecutive
 		if (currentPlayer.Equals(SelectedPlayer.P2))
 			return Input.GetAxis("P2-UP", "P2-DOWN");
 
-		return 0;
+		return 0.0F;
 	}
 }
