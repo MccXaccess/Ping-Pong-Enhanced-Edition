@@ -17,7 +17,7 @@ public partial class PlayerMovement : CharacterBody2D
 
     public override void _Ready()
     {
-		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(int.Parse(Name));
+		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(int.Parse(Name.ToString()[^1..]));
     }
 
     public override void _PhysicsProcess(double delta)
