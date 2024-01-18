@@ -103,12 +103,13 @@ public partial class MultiplayerController : Control
             ID = id
         };
 
+
         if (!GameExecutive.MultiplayerPlayers.Contains(playerObject))
         {
             GameExecutive.MultiplayerPlayers.Add(playerObject);
         }
 
-        if(Multiplayer.IsServer()){
+        if(!Multiplayer.IsServer()){
 			foreach (var item in GameExecutive.MultiplayerPlayers)
 			{
 				Rpc("SendPlayerInformation", item.Name, item.ID);
@@ -128,8 +129,8 @@ public partial class MultiplayerController : Control
 
         _playerId = Multiplayer.GetUniqueId();
 
-        GD.Print(_playerId, "Sending player information to server.");
-        GD.Print(_playerId, $"Id: {_playerId}");
+        GD.Print($"Sending player {_playerId} information to server.");
+        GD.Print($"Id: {_playerId}");
 
         RpcId(1, "SendPlayerInformation", _playerId);
     }

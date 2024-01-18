@@ -9,7 +9,7 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Player 1" type="CharacterBody2D"]
+[node name="Player 1" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_j8fc4")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]

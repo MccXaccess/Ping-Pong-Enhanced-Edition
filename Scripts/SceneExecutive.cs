@@ -8,7 +8,6 @@ namespace PingPong_SceneExecutive
     {
         [Export]
         public PackedScene PlayerScene { get; set; }
-        public PackedScene GameScene;
 
         public override void _Ready() 
         {
@@ -17,7 +16,7 @@ namespace PingPong_SceneExecutive
             foreach (var player in GameExecutive.MultiplayerPlayers)
             {
                 PlayerMovement currentPlayer = PlayerScene.Instantiate<PlayerMovement>();
-
+               
                 currentPlayer.Name = player.Name;
 
                 AddChild(currentPlayer);
@@ -26,7 +25,7 @@ namespace PingPong_SceneExecutive
                 {
                     if (spawnPoint.Name == index.ToString())
                     {
-                        currentPlayer.AsNode2D().GlobalPosition = spawnPoint.GlobalPosition;
+                        currentPlayer.GlobalPosition = spawnPoint.GlobalPosition;
                     }
                 }
 

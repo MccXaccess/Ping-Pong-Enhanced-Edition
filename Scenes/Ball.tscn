@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0bl7r63773ue"]
+
+[ext_resource type="Script" path="res://Scripts/BallMechanic.cs" id="1_oyvjl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2x8s0"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xeaf5"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Ball" type="CharacterBody2D"]
+visibility_layer = 2
+position = Vector2(576, 320)
+collision_mask = 3
+script = ExtResource("1_oyvjl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2x8s0")
+
+[node name="Color" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(10, 10)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_xeaf5")
+visibility_update_mode = 1

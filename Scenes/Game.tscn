@@ -1,21 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjdaeimjcflqn"]
+[gd_scene load_steps=8 format=3 uid="uid://bjdaeimjcflqn"]
 
 [ext_resource type="Script" path="res://Scripts/GameExecutive.cs" id="1_d44tp"]
 [ext_resource type="PackedScene" uid="uid://5dai7dfhlhu3" path="res://Scenes/Player.tscn" id="2_jdeee"]
-[ext_resource type="Script" path="res://Scripts/BallMechanic.cs" id="3_v1ay2"]
+[ext_resource type="PackedScene" uid="uid://d0bl7r63773ue" path="res://Scenes/Ball.tscn" id="3_xw3lh"]
+[ext_resource type="Script" path="res://Scripts/SceneExecutive.cs" id="4_npkye"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kioof"]
 size = Vector2(24, 648)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xnhct"]
 size = Vector2(1152, 24)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2x8s0"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xeaf5"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qos0k"]
 bg_color = Color(1, 1, 1, 0)
@@ -25,6 +19,10 @@ shadow_color = Color(0, 0, 0, 0)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_d44tp")
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("4_npkye")
+PlayerScene = ExtResource("2_jdeee")
 
 [node name="Background Image" type="ColorRect" parent="."]
 offset_right = 1152.0
@@ -46,10 +44,10 @@ one_shot = true
 autostart = true
 
 [node name="Player 1" parent="." instance=ExtResource("2_jdeee")]
-position = Vector2(56, 320)
+position = Vector2(-104, 320)
 
 [node name="Player 2" parent="." instance=ExtResource("2_jdeee")]
-position = Vector2(1096, 320)
+position = Vector2(1296, 320)
 selectedPlayer = 1
 
 [node name="Goal Area Player 1" type="Area2D" parent="."]
@@ -80,31 +78,7 @@ collision_layer = 2
 position = Vector2(576, -12)
 shape = SubResource("RectangleShape2D_xnhct")
 
-[node name="Ball" type="CharacterBody2D" parent="."]
-visibility_layer = 2
-position = Vector2(576, 320)
-collision_mask = 3
-script = ExtResource("3_v1ay2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
-shape = SubResource("RectangleShape2D_2x8s0")
-
-[node name="Color" type="ColorRect" parent="Ball"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(10, 10)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Ball"]
-replication_config = SubResource("SceneReplicationConfig_xeaf5")
+[node name="Ball" parent="." instance=ExtResource("3_xw3lh")]
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
@@ -171,8 +145,10 @@ scroll_fit_content_height = true
 [node name="Spawn Locations" type="Node2D" parent="."]
 
 [node name="1" type="Node2D" parent="Spawn Locations" groups=["PlayerSpawnPoints"]]
+position = Vector2(64, 320)
 
 [node name="2" type="Node2D" parent="Spawn Locations" groups=["PlayerSpawnPoints"]]
+position = Vector2(1088, 320)
 
 [connection signal="timeout" from="Restart Timer" to="." method="OnTimerOut"]
 [connection signal="body_entered" from="Goal Area Player 1" to="." method="OnGoalAreaEntered_P1"]
